@@ -58,6 +58,29 @@ func computeMaxDistance(aValues []int, bValues []int) int {
 	return totalDistance
 }
 
+func computeSimilarityScore(aValues []int, bValues []int) int {
+	similarity := 0
+	for _, n := range aValues {
+		oc := countOccurances(n, bValues)
+		if oc > 0 {
+			similarity += abs(n * oc)
+		}
+	}
+	return similarity
+}
+
+func countOccurances(target int, slice []int) int {
+	count := 0
+
+	for _, n := range slice {
+		if n == target {
+			count++
+		}
+	}
+
+	return count
+}
+
 func abs(x int) int {
 	if x < 0 {
 		return -x
@@ -74,4 +97,7 @@ func main() {
 
 	maxDistance := computeMaxDistance(aValues, bValues)
 	fmt.Printf("The furthest distance is: %d\n", maxDistance)
+
+	similarity := computeSimilarityScore(aValues, bValues)
+	fmt.Printf("The similarity score is: %d\n", similarity)
 }
